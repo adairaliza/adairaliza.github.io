@@ -5,6 +5,8 @@ export const WelcomeSection = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    animation: entryAnimation 3s forwards;
 
     &.margin-1 {
         margin-top: 2px;
@@ -57,6 +59,15 @@ export const WelcomeSection = styled.section`
         filter: blur(0);
         text-shadow: unset;
         cursor: default;
+    }
+
+    @keyframes entryAnimation {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 ;`
 
