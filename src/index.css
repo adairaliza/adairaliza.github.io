@@ -13,8 +13,12 @@ body {
   padding: 0;
 }
 
-body {
+body,
+* {
   box-sizing: border-box;
+}
+
+body {
   font-family: "Alagard";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,4 +53,20 @@ h1 {
 
 h3 {
   font-size: 1.75rem;
+}
+
+.blur {
+  filter: blur(1px);
+  text-shadow: 0 0 3px #fff;
+  transition: filter 3s ease, text-shadow 3s ease;
+}
+
+h1 .blur {
+  text-shadow: 0 0 5px #fff;
+}
+
+.blur:hover {
+  filter: blur(0);
+  text-shadow: unset;
+  cursor: default;
 }

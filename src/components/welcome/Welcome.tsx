@@ -77,15 +77,18 @@ function Welcome() {
     <main>
       <WelcomeSection className={`margin-${count}`}>
         <div className="box">
-          <h1>Welcome.</h1>
-          <h3>What would you like to do?</h3>
+          <h1 className="blur">Welcome.</h1>
+          <h3 className="blur">What would you like to do?</h3>
           <WelcomeOptions>
             <div>
               <h3
+                className="blur"
                 onMouseEnter={() => onHover("continue", continueText)}
                 onMouseLeave={() => onLeave("continue", continueText)}
+                onClick={(() => navigate("entry"))}
               >{continueText}</h3>
               <h3
+                className="blur"
                 onMouseEnter={() => onHover("leave", exitText)}
                 onMouseLeave={() => onLeave("leave", exitText)}
                 onClick={() => navigate("death")}

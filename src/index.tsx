@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Welcome from './components/welcome/Welcome';
 import Death from "./components/death/Death";
+import Entry from "./components/entry/Entry";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/death",
     element: <Death />
+  },
+  {
+    path: "/entry",
+    element: <Entry />
   }
 ]);
 
