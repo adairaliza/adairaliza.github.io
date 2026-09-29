@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const DialogueSection = styled.section`
     position: fixed;
     bottom: 0%;
-    left: 2%;
-    width: 96%;
+    left: 15%;
+    width: 70%;
     z-index: 99;
 
     div {
