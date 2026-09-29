@@ -51,6 +51,10 @@ h1 {
   font-size: 4rem;
 }
 
+h2 {
+  font-size: 2rem;
+}
+
 h3 {
   font-size: 1.75rem;
 }
@@ -69,4 +73,24 @@ h1 .blur {
   filter: blur(0);
   text-shadow: unset;
   cursor: default;
+}
+
+.typeEffect {
+  animation: typeEffect 3.5s steps(40, end);
+}
+
+@keyframes typeEffect {
+  from {
+    width: 0;
+    border-color: transparent;
+  }
+
+  to {
+    width: 100%;
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: white;
+  }
 }

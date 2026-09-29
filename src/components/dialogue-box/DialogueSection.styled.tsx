@@ -13,6 +13,7 @@ export const DialogueSection = styled.section`
         text-align: center;
         border: 3px solid white;
         padding: 2rem 4rem;
+        min-height: 10rem;
 
         animation: entryAnimation 3s forwards, opacityAnimation 5s forwards;
     }
@@ -38,7 +39,7 @@ export const DialogueSection = styled.section`
     a {
         width: fit-content;
         margin:auto;
-        font-size: 2rem;
+        font-size: 1.5rem;
         border-bottom: 1px solid transparent;
         transition: 
             border-bottom-color 1s ease, 
@@ -57,6 +58,7 @@ export const DialogueSection = styled.section`
 
     button {
         border: none;
+        padding: .5rem;
         background: none;
         color: white;
         font-family: "Alagard";

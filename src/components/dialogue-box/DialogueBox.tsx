@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { DialogueSection } from "./DialogueSection.styled";
 import { IDialogueOption } from "./IDialogueOption";
+import { typewriter } from "../../util";
 
 const DialogueBox = ({
     text,
@@ -10,6 +12,18 @@ const DialogueBox = ({
     options?: IDialogueOption[],
     canExit?: boolean,
 }) => {
+    useEffect(() => {
+        handleTyping();
+    }, []);
+
+    const handleTyping = async () => {
+        const isDone = await typewriter(text, "dialogueText");
+        if (isDone && options) {
+            options.map((option: IDialogueOption, index) => {
+                typewriter(option.optionText, `dialogue-option-${index}`);
+            });
+        }
+    }
 
     return (
         <DialogueSection>
@@ -19,13 +33,15 @@ const DialogueBox = ({
                         onClick={() => console.log("this will eventually do something :)")}
                     >x</button>
                 )}
-                <h1 className="blur">{text}</h1>
-                {options?.map((option: IDialogueOption) => {
+                <h2 id="dialogueText" className="blur"></h2>
+                {options?.map((option: IDialogueOption, index) => {
                     return (
                         <a
+                            key={`dialogue-option-${index}`}
+                            id={`dialogue-option-${index}`}
                             className="blur"
                             onClick={() => option.optionHandler()}
-                        >{option.optionText}</a>
+                        ></a>
                     )
                 })}
             </div>
