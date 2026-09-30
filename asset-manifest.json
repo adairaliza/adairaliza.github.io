@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0e50812a.css",
+    "main.js": "/static/js/main.dc1bd21c.js",
+    "static/media/tombstone.jpg": "/static/media/tombstone.c76056b63bc4c8015ea1.jpg",
+    "static/media/alagard.woff2": "/static/media/alagard.597dfd9f84eaad5f74ea.woff2",
+    "index.html": "/index.html",
+    "main.0e50812a.css.map": "/static/css/main.0e50812a.css.map",
+    "main.dc1bd21c.js.map": "/static/js/main.dc1bd21c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0e50812a.css",
+    "static/js/main.dc1bd21c.js"
+  ]
+}
