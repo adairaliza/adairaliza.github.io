@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import tombstone from "../../images/tombstone.jpg";
+import tombstone from "../../assets/images/tombstone.jpg";
 import { DeathSection } from "./Death.styled";
 import DialogueBox from "../dialogue-box/DialogueBox";
 import { IDialogueOption } from "../dialogue-box/IDialogueOption";

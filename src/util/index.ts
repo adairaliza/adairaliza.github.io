@@ -6,7 +6,7 @@ export const typewriter = async (text: string, textId: string): Promise<boolean>
 
         let typeSpeed = 120;
         if (text.length > 10) {
-            typeSpeed = 60;
+            typeSpeed = 90;
         }
 
         const typeInterval = setInterval(() => {
@@ -19,6 +19,6 @@ export const typewriter = async (text: string, textId: string): Promise<boolean>
                     textPos++;
                 }
             }
-        }, 130);
+        }, typeSpeed);
     });
 }
