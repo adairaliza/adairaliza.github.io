@@ -29,13 +29,17 @@ export const CemeterySection = styled.section`
     }
 `;
 
-export const CemeteryRow = styled.div<{ index: number }>`
+export const CemeteryRow = styled.div<{ index: number, pos: number }>`
+    z-index: ${({ pos }) => pos};
     margin: auto;
     width: ${({ index }) => (30 + (index * 2))}%;
     transition: width 333ms ease, bottom 333ms ease, left 333ms ease;
     position: fixed;
-    bottom: ${({ index }) => (75 - index)}%;
-    left: ${({ index }) => (35 - index)}%;
+    bottom: ${({ index, pos }) => (70 - (index * (pos * 0.1)))}%;
+    left: ${({ index, pos }) => ((33 + (pos ^ 2)) - (index * (pos * 0.1)))}%;
+
+    
+    // left: ${({ index }) => (35 - index)}%;
 
     svg {
         transition: width 333ms ease, height 333ms ease;

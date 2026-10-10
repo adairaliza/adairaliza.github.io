@@ -15,7 +15,7 @@ export const HeadstoneSvg = ({
         >
             <rect
                 width="100%" height="100%"
-                fill="none" stroke="white" stroke-width="5px"
+                fill="black" stroke="white" stroke-width="5px"
             />
 
             <text

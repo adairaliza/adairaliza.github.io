@@ -12,6 +12,7 @@ interface Grave {
 interface CemeteryRow {
     rowNumber: number;
     rowContents: Grave[];
+    startingPosition: number;
 }
 
 interface Cemetery {
@@ -39,22 +40,20 @@ const headstones1: Grave[] = [
 const cemetery: Cemetery = {
     rows: [
         {
-            rowNumber: 1,
+            rowNumber: 2,
             rowContents: headstones1,
+            startingPosition: 2,
         },
-        // {
-        //     rowNumber: 2,
-        //     rowContents: headstones2,
-        // }
+        {
+            rowNumber: 1,
+            rowContents: headstones2,
+            startingPosition: 1,
+        }
     ]
 }
 
 const Entry = () => {
     const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        console.log(count);
-    }, [count]);
 
     const walkForward = () => {
         setCount((currCount) => currCount + 0.5);
@@ -75,13 +74,28 @@ const Entry = () => {
         });
     }, []);
 
+    useEffect(() => {
+        console.log("==========HERE==========");
+
+        console.log(`bottom for front row: ${70 - ((2 + count) * (2 * 0.1))}`);
+        console.log(`bottom for second row: ${70 - ((1 + count) * (1 * 0.1))}`);
+
+        console.log(`left for front row: ${(33 + (2 ^ 2)) - ((2 + count) * (2 * 0.1))}`);
+        console.log(`left for second row: ${(33 + (1 ^ 2)) - ((1 + count) * (1 * 0.1))}`);
+
+        console.log("===========END===========");
+    }, [count]);
 
 
     const renderGraves = (): ReactNode => {
         return (
             <section id="cemetery-rows">
                 {cemetery.rows.map((row: CemeteryRow) => (
-                    <CemeteryRow index={row.rowNumber + count} id={`cemetery-row-${row.rowNumber}`}>
+                    <CemeteryRow
+                        index={row.rowNumber + count}
+                        id={`cemetery-row-${row.rowNumber}`}
+                        pos={row.startingPosition}
+                    >
                         {row.rowContents.map((grave: Grave) => (
                             <GraveStyled index={row.rowNumber + count}
                                 className={`grave-in-row-${row.rowNumber}`}
