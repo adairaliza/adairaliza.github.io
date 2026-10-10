@@ -1,70 +1,49 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DialogueBox from "../dialogue-box/DialogueBox";
-import HeadstoneOption from "../headstone-option/HeadstoneOption";
-import { CemeterySection, CemeteryRow, GraveStyled } from "./Entry.styled";
-import { HeadstoneSvg } from "../headstone-svg/HeadstoneSvg";
-
-interface Grave {
-    title: string;
-    id: string;
-}
-
-interface CemeteryRow {
-    rowNumber: number;
-    rowContents: Grave[];
-}
-
-interface Cemetery {
-    rows: CemeteryRow[];
-}
-
-const headstones2: Grave[] = [
-    {
-        title: "artwork",
-        id: "art-headstone",
-    }
-]
-
-const headstones1: Grave[] = [
-    {
-        title: "music collection",
-        id: "music-headstone",
-    },
-    {
-        title: "beloved books",
-        id: "books-headstone",
-    },
-]
-
-const cemetery: Cemetery = {
-    rows: [
-        {
-            rowNumber: 1,
-            rowContents: headstones1,
-        },
-        // {
-        //     rowNumber: 2,
-        //     rowContents: headstones2,
-        // }
-    ]
-}
+import { EntrySection, MouseTrail } from "./Entry.styled";
+import tombstone from "../../assets/images/tombstone.jpg";
 
 const Entry = () => {
     const [count, setCount] = useState(0);
+    const [mouseCoord, setMouseCoord] = useState({ x: 0, y: 0 });
+    const [mouseTrail, setMouseTrail] = useState({ x: 0, y: 0 })
 
     useEffect(() => {
-        console.log(count);
+        console.log("count", count);
     }, [count]);
+    useEffect(() => {
+        const xValues = [mouseCoord.x, mouseTrail.x].sort((a, b) => a - b);
+        const yValues = [mouseCoord.y, mouseTrail.y].sort((a, b) => a - b);
+
+        if (
+            mouseTrail.x === 0 ||
+            (xValues[1] % xValues[0]) > 5 ||
+            (yValues[1] % yValues[0]) > 5
+        ) {
+            setMouseTrail({
+                x: mouseCoord.x,
+                y: mouseCoord.y
+            })
+        }
+    }, [mouseCoord]);
 
     const walkForward = () => {
-        setCount((currCount) => currCount + 0.5);
+        setCount((currCount) => currCount + 1);
     }
 
     const walkBackward = () => {
-        setCount((currCount) => currCount === 0 ? currCount : currCount - 0.5);
+        setCount((currCount) => currCount === 0 ? currCount : currCount - 1);
+    }
+
+    const updateMouse = (x: number, y: number) => {
+        setMouseCoord({ x, y });
     }
 
     useEffect(() => {
+        window.addEventListener("mousemove", (event: any) =>
+            updateMouse(event.clientX, event.clientY)
+        );
+
         window.addEventListener("wheel", (event: any) => {
             const scrollDirection = event?.wheelDelta;
             if (scrollDirection > 0) {
@@ -76,32 +55,14 @@ const Entry = () => {
     }, []);
 
 
-
-    const renderGraves = (): ReactNode => {
-        return (
-            <section id="cemetery-rows">
-                {cemetery.rows.map((row: CemeteryRow) => (
-                    <CemeteryRow index={row.rowNumber + count} id={`cemetery-row-${row.rowNumber}`}>
-                        {row.rowContents.map((grave: Grave) => (
-                            <GraveStyled index={row.rowNumber + count}
-                                className={`grave-in-row-${row.rowNumber}`}
-                                id={grave.id}
-                                key={grave.id}
-                            >
-                                <HeadstoneSvg label={grave.title} index={row.rowNumber} count={count} />
-                            </GraveStyled>
-                        ))}
-                    </CemeteryRow>
-                ))}
-            </section>
-        );
-    }
-
     return (
         <>
-            <CemeterySection>
-                {renderGraves()}
-            </CemeterySection>
+            <EntrySection>
+                <h1>Music collection</h1>
+            </EntrySection>
+            <MouseTrail x={mouseTrail.x} y={mouseTrail.y}>
+                <img className="mouse-trail" src={tombstone} />
+            </MouseTrail>
             <DialogueBox text="Choose where you'd like to go next." canExit />
         </>
     )
