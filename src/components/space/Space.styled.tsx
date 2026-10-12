@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const EntrySection = styled.section`
+export const SpaceSection = styled.section`
     position: absolute;
     text-align: center;
 `;

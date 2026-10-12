@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from "./components/main/Main";
 import Welcome from './components/welcome/Welcome';
 import Death from "./components/death/Death";
-import Entry from "./components/entry/Entry";
+import Space from "./components/space/Space";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/entry",
-        element: <Entry />
+        element: <Space />
       }
     ]
   },
