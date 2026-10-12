@@ -1,15 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.0e50812a.css",
-    "main.js": "/static/js/main.c8c891fe.js",
+    "main.js": "/static/js/main.1d578cff.js",
     "static/media/tombstone.jpg": "/static/media/tombstone.c76056b63bc4c8015ea1.jpg",
+    "static/media/sparkle.svg": "/static/media/sparkle.9f0cd98a90b5a3a1449bef5d3befc6fd.svg",
     "static/media/alagard.woff2": "/static/media/alagard.597dfd9f84eaad5f74ea.woff2",
     "index.html": "/index.html",
     "main.0e50812a.css.map": "/static/css/main.0e50812a.css.map",
-    "main.c8c891fe.js.map": "/static/js/main.c8c891fe.js.map"
+    "main.1d578cff.js.map": "/static/js/main.1d578cff.js.map"
   },
   "entrypoints": [
     "static/css/main.0e50812a.css",
-    "static/js/main.c8c891fe.js"
+    "static/js/main.1d578cff.js"
   ]
 }
