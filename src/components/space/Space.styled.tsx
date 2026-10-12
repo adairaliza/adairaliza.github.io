@@ -10,3 +10,20 @@ export const SparkleDiv = styled.div`
     height: 100%;
     width: 100%;
 `;
+
+export const BlackHoleDiv = styled.div<{ visibility: number }>`
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    
+    button {
+        width: ${({ visibility }) => visibility}px;
+        height: ${({ visibility }) => visibility}px;
+        opacity: ${({ visibility }) => visibility * 3}%;
+        margin: auto;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+`;
