@@ -14,6 +14,7 @@ export const DialogueSection = styled.section`
         border: 3px solid white;
         padding: 2rem 4rem;
         min-height: 10rem;
+        background: black;
 
         animation: entryAnimation 3s forwards, opacityAnimation 5s forwards;
     }

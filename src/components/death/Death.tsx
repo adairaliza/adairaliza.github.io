@@ -1,14 +1,18 @@
-import { useNavigate } from "react-router-dom";
-import tombstone from "../../images/tombstone.jpg";
-import { DeathSection } from "./Death.styled";
+import { useMouseTrail } from "../../hooks/useMouseTrail";
+import { usePageChange } from "../../hooks/usePageChange";
+
 import DialogueBox from "../dialogue-box/DialogueBox";
+import tombstone from "../../assets/images/tombstone.jpg";
+
 import { IDialogueOption } from "../dialogue-box/IDialogueOption";
+import { DeathSection } from "./Death.styled";
 
 function Death() {
-    const navigate = useNavigate();
+    const navigate = usePageChange();
+    const mouseTrail = useMouseTrail();
 
     const handleRetry = () => {
-        navigate("/");
+        navigate("/", true);
     }
 
     const deathOptions: IDialogueOption[] = [{
@@ -18,6 +22,7 @@ function Death() {
 
     return (
         <main>
+            {mouseTrail(tombstone)}
             <DeathSection>
                 <div className="img-div">
                     <img src={tombstone} />

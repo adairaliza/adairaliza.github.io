@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { usePageChange } from "../../hooks/usePageChange";
+
 import {
   WelcomeSection,
   WelcomeOptions
 } from "./Welcome.styled";
 
 function Welcome() {
-  const navigate = useNavigate();
+  const navigate = usePageChange();
   const [continueText, setContinueText] = useState("Walk forward");
   const [exitText, setExitText] = useState("Turn away");
   const [count, setCount] = useState(1);
@@ -85,13 +86,13 @@ function Welcome() {
                 className="blur"
                 onMouseEnter={() => onHover("continue", continueText)}
                 onMouseLeave={() => onLeave("continue", continueText)}
-                onClick={(() => navigate("entry"))}
+                onClick={(() => navigate("entry", true))}
               >{continueText}</h3>
               <h3
                 className="blur"
                 onMouseEnter={() => onHover("leave", exitText)}
                 onMouseLeave={() => onLeave("leave", exitText)}
-                onClick={() => navigate("death")}
+                onClick={() => navigate("death", true)}
               >{exitText}</h3>
             </div>
           </WelcomeOptions>
