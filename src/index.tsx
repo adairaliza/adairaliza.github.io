@@ -8,12 +8,20 @@ import Main from "./components/main/Main";
 import Welcome from './components/welcome/Welcome';
 import Death from "./components/death/Death";
 import Space from "./components/space/Space";
+import BlackHole from "./components/black-hole/BlackHole";
+import { blackHoleList } from "./constants";
+
+const routes = blackHoleList.map((url: string) => ({
+  path: `/${url}`,
+  element: <BlackHole />,
+}));
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
     children: [
+      ...routes,
       {
         path: "",
         element: <Welcome />,
@@ -25,7 +33,11 @@ const router = createBrowserRouter([
       {
         path: "/entry",
         element: <Space />
-      }
+      },
+      // {
+      //   path: "/TON618",
+      //   element: <BlackHole />
+      // }
     ]
   },
 ]);
