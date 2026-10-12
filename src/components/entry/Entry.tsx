@@ -39,7 +39,7 @@ const Entry = () => {
         <>
             {mouseTrail(star)}
             <EntrySection>
-                <h1>Music collection</h1>
+
             </EntrySection>
             <DialogueBox text="Choose where you'd like to go next." canExit />
         </>

@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
-import { DialogueSection } from "./DialogueSection.styled";
-import { IDialogueOption } from "./IDialogueOption";
+import { useEffect } from "react";
+
 import { typewriter } from "../../util";
+
+import { IDialogueOption } from "./IDialogueOption";
+import { DialogueSection } from "./DialogueSection.styled";
 
 const DialogueBox = ({
     text,
