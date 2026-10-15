@@ -7,6 +7,14 @@ function Main() {
     const hideOverlay = usePageChange();
 
     useEffect(() => {
+        Array.from(document.getElementsByClassName("blur"))
+            .forEach((element) => {
+                const text: string = element.textContent || "";
+                element.setAttribute("text-content", text);
+            });
+    }, []);
+
+    useEffect(() => {
         hideOverlay("", false);
     }, [location]);
 
@@ -15,7 +23,6 @@ function Main() {
             <div id="overlay" style={{
                 pointerEvents: "none",
                 position: "fixed",
-                inset: "0",
                 width: "100vw",
                 height: "100vh",
                 backgroundColor: "black",

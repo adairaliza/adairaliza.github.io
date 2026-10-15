@@ -59,22 +59,6 @@ h3 {
   font-size: 1.75rem;
 }
 
-.blur {
-  filter: blur(1px);
-  text-shadow: 0 0 3px #fff;
-  transition: filter 3s ease, text-shadow 3s ease;
-}
-
-h1 .blur {
-  text-shadow: 0 0 5px #fff;
-}
-
-.blur:hover {
-  filter: blur(0);
-  text-shadow: unset;
-  cursor: default;
-}
-
 .typeEffect {
   animation: typeEffect 3.5s steps(40, end);
 }

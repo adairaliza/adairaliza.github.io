@@ -46,19 +46,19 @@ export const WelcomeSection = styled.section`
         text-align: center;
         letter-spacing: .2rem;
         width: 100%;
-        filter: blur(1px);
-        text-shadow: 0 0 5px #fff;
         transition: filter 3s ease, text-shadow 3s ease;
     }
 
-    h3 {
-        text-shadow: 0 0 3px #fff;
+    h1:hover, h3:hover {
+        cursor: default;
     }
 
-    h1:hover, h3:hover {
-        filter: blur(0);
-        text-shadow: unset;
-        cursor: default;
+    .blur::before {
+        position: absolute;
+        content: attr(text-content);
+        filter: blur(4px);
+        text-shadow: 0 0 3px #fff;
+        opacity: 75%;
     }
 
     @keyframes entryAnimation {
@@ -79,15 +79,33 @@ export const WelcomeOptions = styled.section`
 
     div {
         margin: 0 auto;
-        width: 30%;
+        width: fit-content;
         white-space: nowrap;
-    } 
+    }
+
+    span {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        font-size: 1.75rem;
+    }
+
+    span::before {
+        content: ">";
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: all 300ms ease;
+    }
+
+    span:hover::before {
+        opacity: 1;
+    }
 
     h3 {
         text-align: left;
         margin-bottom: 0.75rem;
     }
-        
+
     h3:hover {
         cursor: pointer;
     }

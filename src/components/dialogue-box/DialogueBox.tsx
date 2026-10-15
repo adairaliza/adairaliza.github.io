@@ -35,13 +35,12 @@ const DialogueBox = ({
                         onClick={() => console.log("this will eventually do something :)")}
                     >x</button>
                 )}
-                <h2 id="dialogueText" className="blur"></h2>
+                <h2 id="dialogueText"></h2>
                 {options?.map((option: IDialogueOption, index) => {
                     return (
                         <a
                             key={`dialogue-option-${index}`}
                             id={`dialogue-option-${index}`}
-                            className="blur"
                             onClick={() => option.optionHandler()}
                         ></a>
                     )

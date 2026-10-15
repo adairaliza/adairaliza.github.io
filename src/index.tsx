@@ -34,10 +34,6 @@ const router = createBrowserRouter([
         path: "/entry",
         element: <Space />
       },
-      // {
-      //   path: "/TON618",
-      //   element: <BlackHole />
-      // }
     ]
   },
 ]);
