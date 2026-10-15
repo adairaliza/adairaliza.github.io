@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         element: <Death />
       },
       {
-        path: "/entry",
+        path: "/orbit",
         element: <Space />
       },
     ]

@@ -36,13 +36,39 @@ export const WelcomeSection = styled.section`
         justify-content: center;
 
         border: 5px solid #fff;
-        width: 50rem;
-        height: 25rem;
-        
+        width: 90rem;
+        height: 50rem;
+    }
+
+    #border-decor {
+        position: fixed;
+        width: 90rem;
+        height: 50rem;
+    }
+
+    [id^="decor-"] {
+        position: absolute;
+        width: 20rem;
+    }
+
+    #decor-top {
+        transform: translateX(35rem) translateY(-12rem);
+    }
+
+    #decor-right {
+        transform: rotate(90deg) translateX(12rem) translateY(-82rem);
+    }
+
+    #decor-bottom {
+        transform: rotate(180deg) translateX(-35rem) translateY(-42rem);
+    }
+
+    #decor-left {
+        transform: rotate(-90deg) translateX(-14rem) translateY(-12rem);
     }
 
     h1, h3 {
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         text-align: center;
         letter-spacing: .2rem;
         width: 100%;
@@ -53,14 +79,6 @@ export const WelcomeSection = styled.section`
         cursor: default;
     }
 
-    .blur::before {
-        position: absolute;
-        content: attr(text-content);
-        filter: blur(4px);
-        text-shadow: 0 0 3px #fff;
-        opacity: 75%;
-    }
-
     @keyframes entryAnimation {
         from {
             opacity: 0;
@@ -68,45 +86,5 @@ export const WelcomeSection = styled.section`
         to {
             opacity: 1;
         }
-    }
-;`
-
-export const WelcomeOptions = styled.section`
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    width: 100%;
-
-    div {
-        margin: 0 auto;
-        width: fit-content;
-        white-space: nowrap;
-    }
-
-    span {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        font-size: 1.75rem;
-    }
-
-    span::before {
-        content: ">";
-        opacity: 0;
-        transform: translateX(-10px);
-        transition: all 300ms ease;
-    }
-
-    span:hover::before {
-        opacity: 1;
-    }
-
-    h3 {
-        text-align: left;
-        margin-bottom: 0.75rem;
-    }
-
-    h3:hover {
-        cursor: pointer;
     }
 ;`

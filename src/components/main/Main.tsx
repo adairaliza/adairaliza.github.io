@@ -7,14 +7,6 @@ function Main() {
     const hideOverlay = usePageChange();
 
     useEffect(() => {
-        Array.from(document.getElementsByClassName("blur"))
-            .forEach((element) => {
-                const text: string = element.textContent || "";
-                element.setAttribute("text-content", text);
-            });
-    }, []);
-
-    useEffect(() => {
         hideOverlay("", false);
     }, [location]);
 

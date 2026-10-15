@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { usePageChange } from "../../hooks/usePageChange";
 
-import {
-  WelcomeSection,
-  WelcomeOptions
-} from "./Welcome.styled";
+import { WelcomeSection } from "./Welcome.styled";
+import { DialogueStyled } from "../main/Main.styled";
+
+import border from "../../assets/images/border.svg";
 
 function Welcome() {
   const navigate = usePageChange();
@@ -24,6 +24,12 @@ function Welcome() {
   };
 
   useEffect(() => {
+    Array.from(document.getElementsByClassName("blur"))
+      .forEach((element) => {
+        const text: string = element.textContent || "";
+        element.setAttribute("text-content", text);
+      });
+
     const interval = setInterval(() => {
       counter();
     }, 1500);
@@ -35,12 +41,18 @@ function Welcome() {
     <main>
       <WelcomeSection className={`margin-${count}`}>
         <div className="box">
+          <span id="border-decor">
+            <img id="decor-top" src={border} />
+            <img id="decor-right" src={border} />
+            <img id="decor-bottom" src={border} />
+            <img id="decor-left" src={border} />
+          </span>
           <h1 className="blur">Welcome.</h1>
           <h3 className="blur">What would you like to do?</h3>
-          <WelcomeOptions>
+          <DialogueStyled>
             <div>
               <span>
-                <h3 className="blur" onClick={(() => navigate("entry", true))}>
+                <h3 className="blur" onClick={(() => navigate("orbit", true))}>
                   Enter
                 </h3>
               </span>
@@ -50,7 +62,7 @@ function Welcome() {
                 </h3>
               </span>
             </div>
-          </WelcomeOptions>
+          </DialogueStyled>
         </div>
       </WelcomeSection>
     </main>

@@ -7,13 +7,17 @@ export const DialogueSection = styled.section`
     width: 70%;
     z-index: 99;
 
-    div {
+    #dialogueText {
+        margin-bottom: 1.5rem;
+    }
+
+    .border {
         display: flex;
         flex-direction: column;
         text-align: center;
         border: 3px solid white;
         padding: 2rem 4rem;
-        min-height: 10rem;
+        min-height: 16rem;
         background: black;
 
         animation: entryAnimation 3s forwards, opacityAnimation 5s forwards;
@@ -35,26 +39,6 @@ export const DialogueSection = styled.section`
         to {
             margin-bottom: 2%;
         }
-    }
-
-    a {
-        width: fit-content;
-        margin:auto;
-        font-size: 1.5rem;
-        border-bottom: 1px solid transparent;
-        transition: 
-            border-bottom-color 1s ease, 
-            filter 3s ease, 
-            text-shadow 3s ease;
-    }
-
-    a:hover {
-        cursor: pointer;
-        border-bottom-color: white;
-    }
-
-    a:first-of-type {
-        margin-top: 1rem;
     }
 
     button {
