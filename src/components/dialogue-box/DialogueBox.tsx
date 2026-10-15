@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 
-import { typewriter } from "../../util";
+import { typewriter } from "../../util/index";
 
 import { IDialogueOption } from "./IDialogueOption";
 import { DialogueSection } from "./DialogueSection.styled";
+import { DialogueStyled } from "../main/Main.styled";
 
 const DialogueBox = ({
     text,
@@ -29,23 +30,28 @@ const DialogueBox = ({
 
     return (
         <DialogueSection>
-            <div>
+            <div className="border">
                 {canExit && (
                     <button
                         onClick={() => console.log("this will eventually do something :)")}
                     >x</button>
                 )}
-                <h2 id="dialogueText" className="blur"></h2>
-                {options?.map((option: IDialogueOption, index) => {
-                    return (
-                        <a
-                            key={`dialogue-option-${index}`}
-                            id={`dialogue-option-${index}`}
-                            className="blur"
-                            onClick={() => option.optionHandler()}
-                        ></a>
-                    )
-                })}
+                <h3 id="dialogueText"></h3>
+                <DialogueStyled>
+                    <div>
+                        {options?.map((option: IDialogueOption, index) => {
+                            return (
+                                <span>
+                                    <h3
+                                        key={`dialogue-option-${index}`}
+                                        id={`dialogue-option-${index}`}
+                                        onClick={() => option.optionHandler()}
+                                    ></h3>
+                                </span>
+                            )
+                        })}
+                    </div>
+                </DialogueStyled>
             </div>
         </DialogueSection>
     )

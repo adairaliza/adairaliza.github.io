@@ -31,13 +31,9 @@ const router = createBrowserRouter([
         element: <Death />
       },
       {
-        path: "/entry",
+        path: "/orbit",
         element: <Space />
       },
-      // {
-      //   path: "/TON618",
-      //   element: <BlackHole />
-      // }
     ]
   },
 ]);

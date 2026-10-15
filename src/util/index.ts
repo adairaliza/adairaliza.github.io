@@ -22,3 +22,8 @@ export const typewriter = async (text: string, textId: string): Promise<boolean>
         }, typeSpeed);
     });
 }
+
+export const getRandomNumber = (min: number, max: number, positiveOnly: boolean): number => {
+    const number = Math.floor(Math.random() * (max - min) + min);
+    return positiveOnly || number % 2 == 0 ? number : -number
+}

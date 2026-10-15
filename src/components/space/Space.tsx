@@ -167,7 +167,7 @@ const Space = () => {
                 }
                 {starLayers.map(createStarLayer)}
             </SpaceSection>
-            <DialogueBox text="Welcome to my space. Thank you for visiting. Proceed with caution and curiosity." canExit />
+            <DialogueBox text="Welcome to my space. Thank you for visiting. Proceed with caution..." canExit />
         </>
     )
 }

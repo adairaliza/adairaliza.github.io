@@ -36,28 +36,46 @@ export const WelcomeSection = styled.section`
         justify-content: center;
 
         border: 5px solid #fff;
-        width: 50rem;
-        height: 25rem;
-        
+        width: 90rem;
+        height: 50rem;
+    }
+
+    #border-decor {
+        position: fixed;
+        width: 90rem;
+        height: 50rem;
+    }
+
+    [id^="decor-"] {
+        position: absolute;
+        width: 20rem;
+    }
+
+    #decor-top {
+        transform: translateX(35rem) translateY(-12rem);
+    }
+
+    #decor-right {
+        transform: rotate(90deg) translateX(12rem) translateY(-82rem);
+    }
+
+    #decor-bottom {
+        transform: rotate(180deg) translateX(-35rem) translateY(-42rem);
+    }
+
+    #decor-left {
+        transform: rotate(-90deg) translateX(-14rem) translateY(-12rem);
     }
 
     h1, h3 {
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         text-align: center;
         letter-spacing: .2rem;
         width: 100%;
-        filter: blur(1px);
-        text-shadow: 0 0 5px #fff;
         transition: filter 3s ease, text-shadow 3s ease;
     }
 
-    h3 {
-        text-shadow: 0 0 3px #fff;
-    }
-
     h1:hover, h3:hover {
-        filter: blur(0);
-        text-shadow: unset;
         cursor: default;
     }
 
@@ -68,27 +86,5 @@ export const WelcomeSection = styled.section`
         to {
             opacity: 1;
         }
-    }
-;`
-
-export const WelcomeOptions = styled.section`
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    width: 100%;
-
-    div {
-        margin: 0 auto;
-        width: 30%;
-        white-space: nowrap;
-    } 
-
-    h3 {
-        text-align: left;
-        margin-bottom: 0.75rem;
-    }
-        
-    h3:hover {
-        cursor: pointer;
     }
 ;`

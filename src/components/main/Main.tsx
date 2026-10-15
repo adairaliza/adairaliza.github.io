@@ -15,7 +15,6 @@ function Main() {
             <div id="overlay" style={{
                 pointerEvents: "none",
                 position: "fixed",
-                inset: "0",
                 width: "100vw",
                 height: "100vh",
                 backgroundColor: "black",
