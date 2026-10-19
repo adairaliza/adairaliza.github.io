@@ -7,7 +7,7 @@ export const FallingStarsStyled = styled.section`
     top: 0;
     z-index: -100;
 
-    #night-sky {
+    [id^="night-sky"] {
         position: fixed;
         width: 100%;
 
@@ -15,13 +15,24 @@ export const FallingStarsStyled = styled.section`
             opacity: 0;
             position: absolute;
             top: 0px;
-            animation: fallingStar 10s linear;
         }
     }
+`;
+
+export const NightSkyDiv = styled.div<{ level: number }>`
+    opacity: .${({ level }) => 6 + level};
+    p {
+        font-size: ${({ level }) => 60 - (15 * level)}px;
+        filter: blur(${({ level }) => (8 - (level + (level * 2)))}px);
+        // animation: fallingStar ${({ level }) => (40 - (level * 10))}s linear;
+        animation: fallingStar ${({ level }) => level === 3 ? 50 : level === 2 ? 15 : 8}s linear;
+    }
+
+    
 
     @keyframes fallingStar {
         0% {
-            transform: translateY(-100px);
+            transform: translateY(-50px);
             opacity: 1;
         }
 
@@ -58,9 +69,8 @@ export const FallingStarsStyled = styled.section`
         }
 
         100% {
-            transform: translateY(1000px);
+            transform: translateY(1200px);
             opacity: 0;
         }
     }
-
 `;
