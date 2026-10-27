@@ -39,6 +39,7 @@ const Space = ({ active }: { active: Boolean }) => {
                 row,
                 stars: Array.from({ length: lengthAmt }, (_, index) => ({
                     id: index,
+                    imgIndex: Math.floor(Math.random() * imgs.length),
                     top: Math.random() * 95,
                     left: Math.random() * 95,
                     translateX: 0,
@@ -129,7 +130,7 @@ const Space = ({ active }: { active: Boolean }) => {
                 {layer.stars.map((star) => {
                     return <img
                         key={star.id}
-                        src={imgs[layer.imgIndex]}
+                        src={imgs[star.imgIndex]}
                         className={`stars row-${layer.row}`}
                         style={{
                             position: "fixed",
@@ -154,13 +155,13 @@ const Space = ({ active }: { active: Boolean }) => {
 
     return (
         <>
-            {mouseTrail(star)}
+            {active && mouseTrail(star)}
             <SpaceSection>
-                {countRef.current > 30 &&
-                    <BlackHoleDiv visibility={countRef.current - 30}>
+                {countRef.current > 25 &&
+                    <BlackHoleDiv visibility={countRef.current - 25}>
                         <button
                             onClick={() => navigateToBlackHole()}
-                        >.</button>
+                        >click me</button>
                     </BlackHoleDiv>
                 }
                 {starLayers.map(createStarLayer)}
