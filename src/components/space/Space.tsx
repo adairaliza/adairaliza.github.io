@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { useMouseTrail } from "../../hooks/useMouseTrail";
 import { usePageChange } from "../../hooks/usePageChange";
 
@@ -8,6 +8,8 @@ import sparkle from "../../assets/images/sparkle.svg";
 import { blackHoleList } from "../../constants";
 
 import { BlackHoleDiv, SpaceSection, SparkleDiv } from "./Space.styled";
+
+const imgs = [newsparkle, sparkle];
 
 /* 
 * Will consist of surface-level things about me
@@ -23,11 +25,66 @@ import { BlackHoleDiv, SpaceSection, SparkleDiv } from "./Space.styled";
 const Space = ({ active }: { active: Boolean }) => {
     const mouseTrail = useMouseTrail();
     const navigate = usePageChange();
-    const imgs = [newsparkle, sparkle];
-
     const countRef = useRef(0);
     const pendingDirectionRef = useRef(0);
     const frameRef = useRef(0);
+
+    const [starLayers, setStarLayers] = useState(() =>
+        [1, 2, 3, 4, 5, 6, 7, 8].map((row) => {
+            const imgIndex = Math.floor(Math.random() * imgs.length);
+            const lengthAmt = Math.floor(Math.random() * 15 + 10);
+
+            return {
+                imgIndex,
+                row,
+                stars: Array.from({ length: lengthAmt }, (_, index) => ({
+                    id: index,
+                    top: Math.random() * 95,
+                    left: Math.random() * 95,
+                    translateX: 0,
+                    translateY: 0,
+                    width: row * 2,
+                    blur: 0,
+                    opacity: 1,
+                }))
+            }
+        })
+    );
+
+    const updateStars = useCallback((isForward: boolean) => {
+        setStarLayers((prevLayers) =>
+            prevLayers.map((layer) => {
+                const positionDiff = layer.row * .05;
+                const widthDiff = layer.row * .75;
+                const opacityDiff = layer.row * .0085;
+
+                return {
+                    ...layer,
+                    stars: layer.stars.map((star) => {
+                        let blurValue = star.blur;
+                        if (isForward && star.width > 25) {
+                            blurValue += .5;
+                        } else if (!isForward && star.width > 20) {
+                            blurValue -= .5;
+                        }
+
+                        const direction = isForward ? 1 : -1;
+                        const horizontalDirection = star.left >= 50 ? 1 : -1;
+                        const verticalDirection = star.top >= 50 ? 1 : -1;
+
+                        return {
+                            ...star,
+                            translateX: star.translateX + horizontalDirection * positionDiff * direction,
+                            translateY: star.translateY + verticalDirection * positionDiff * direction,
+                            width: star.width + widthDiff * direction,
+                            blur: blurValue,
+                            opacity: star.opacity - opacityDiff * direction,
+                        };
+                    })
+                }
+            })
+        );
+    }, []);
 
     useEffect(() => {
         if (active) {
@@ -59,66 +116,12 @@ const Space = ({ active }: { active: Boolean }) => {
                 window.removeEventListener("wheel", handleScroll);
                 if (frameRef.current !== 0) {
                     cancelAnimationFrame(frameRef.current);
+                    frameRef.current = 0;
                 }
+                pendingDirectionRef.current = 0;
             }
         }
-    }, [active]);
-
-
-    const [starLayers, setStarLayers] = useState(() =>
-        [1, 2, 3, 4, 5, 6, 7, 8].map((row) => {
-            const imgIndex = Math.floor(Math.random() * imgs.length);
-            const lengthAmt = Math.floor(Math.random() * 15 + 10);
-
-            return {
-                imgIndex,
-                row,
-                stars: Array.from({ length: lengthAmt }, (_, index) => ({
-                    id: index,
-                    top: Math.random() * 95,
-                    left: Math.random() * 95,
-                    width: row * 2,
-                    blur: 0,
-                    opacity: 1,
-                }))
-            }
-        })
-    );
-
-    const updateStars = (isForward: boolean) => {
-        setStarLayers((prevLayers) =>
-            prevLayers.map((layer) => {
-                const positionDiff = layer.row * .05;
-                const widthDiff = layer.row * .5;
-                const opacityDiff = layer.row * .0085;
-
-                return {
-                    ...layer,
-                    stars: layer.stars.map((star) => {
-                        let blurValue = star.blur;
-                        if (isForward && star.width > 25) {
-                            blurValue = blurValue + .5;
-                        } else if (!isForward && star.width > 20) {
-                            blurValue = blurValue - .5;
-                        }
-
-                        return {
-                            ...star,
-                            top: star.top >= 50
-                                ? star.top + (isForward ? positionDiff : -positionDiff)
-                                : star.top + (isForward ? -positionDiff : positionDiff),
-                            left: star.left >= 50
-                                ? star.left + (isForward ? positionDiff : -positionDiff)
-                                : star.left + (isForward ? -positionDiff : positionDiff),
-                            width: star.width + (isForward ? widthDiff : -widthDiff),
-                            filter: blurValue,
-                            opacity: star.opacity + (isForward ? -opacityDiff : opacityDiff),
-                        }
-                    })
-                }
-            })
-        );
-    }
+    }, [active, updateStars]);
 
     const createStarLayer = (layer: typeof starLayers[number]) => {
         return (
@@ -135,7 +138,8 @@ const Space = ({ active }: { active: Boolean }) => {
                             left: `${star.left}%`,
                             filter: `blur(${star.blur}px)`,
                             opacity: star.opacity,
-                            transition: "top 300ms ease, left 300ms ease, width 300ms ease, opacity 300ms ease, filter 300ms ease",
+                            transform: `translate(${star.translateX}vw, ${star.translateY}vh)`,
+                            transition: "transform 300ms ease, width 300ms ease, opacity 300ms ease, filter 300ms ease",
                         }}
                     />
                 })}
