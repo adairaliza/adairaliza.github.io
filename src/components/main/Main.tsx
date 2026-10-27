@@ -19,7 +19,7 @@ function Main() {
                 height: "100vh",
                 backgroundColor: "black",
                 zIndex: "999",
-                opacity: "0",
+                opacity: "1",
                 transition: "opacity 1s ease",
             }} />
             <Outlet />

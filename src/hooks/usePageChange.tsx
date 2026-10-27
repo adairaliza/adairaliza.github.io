@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { FADE_OUT } from "../constants";
 
 export function usePageChange() {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ export function usePageChange() {
             overlay.style.opacity = "0";
 
         if (url.length)
-            setTimeout(() => navigate(url), 1500);
+            setTimeout(() => navigate(url), FADE_OUT);
     }
 
     return changePage;

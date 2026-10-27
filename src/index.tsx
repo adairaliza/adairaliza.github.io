@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from "./components/main/Main";
 import Welcome from './components/welcome/Welcome';
 import Death from "./components/death/Death";
-import Space from "./components/space/Space";
 import BlackHole from "./components/black-hole/BlackHole";
 import { blackHoleList } from "./constants";
 
@@ -29,10 +28,6 @@ const router = createBrowserRouter([
       {
         path: "/death",
         element: <Death />
-      },
-      {
-        path: "/orbit",
-        element: <Space />
       },
     ]
   },

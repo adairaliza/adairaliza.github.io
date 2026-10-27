@@ -9,6 +9,7 @@ export const SparkleDiv = styled.div`
     position: fixed;
     height: 100%;
     width: 100%;
+    z-index: -1;
 `;
 
 export const BlackHoleDiv = styled.div<{ visibility: number }>`

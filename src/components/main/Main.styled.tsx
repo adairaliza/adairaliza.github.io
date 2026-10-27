@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const MouseTrail = styled.div`
+    z-index: -1;
     .star-div {
         animation: disappearAnimation 1s forwards;
     }
@@ -27,21 +28,26 @@ export const DialogueStyled = styled.section`
         white-space: nowrap;
     }
 
-    span {
+    button {
+        background: none;
+        font-family: "Alagard";
+        border: none;
+
+        color: white;
         display: flex;
         flex-direction: row;
         width: 100%;
         font-size: 1.75rem;
     }
 
-    span::before {
+    button::before {
         content: ">";
         opacity: 0;
         transform: translateX(-10px);
         transition: all 300ms ease;
     }
 
-    span:hover::before {
+    button:hover::before {
         opacity: 1;
     }
 
@@ -50,7 +56,7 @@ export const DialogueStyled = styled.section`
         margin-bottom: 0.75rem;
     }
 
-    h3:hover {
+    button:hover {
         cursor: pointer;
     }
 `;

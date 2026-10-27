@@ -29,21 +29,24 @@ export const WelcomeSection = styled.section`
         margin-bottom: -10px;
     }
 
-    .box {
+    #welcome-box {
+        z-index: 100;
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
 
         border: 5px solid #fff;
-        width: 90rem;
-        height: 50rem;
+        background: black;
+        width: clamp(60rem, 75vw, 85rem);
+        height: clamp(30rem, 40vw, 52rem);
+        transition: opacity 1.5s ease;
     }
 
     #border-decor {
-        position: fixed;
-        width: 90rem;
-        height: 50rem;
+        inset: 0;
+        position: absolute;
     }
 
     [id^="decor-"] {
@@ -52,19 +55,31 @@ export const WelcomeSection = styled.section`
     }
 
     #decor-top {
-        transform: translateX(35rem) translateY(-12rem);
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding-bottom: 5rem;
     }
 
     #decor-right {
-        transform: rotate(90deg) translateX(12rem) translateY(-82rem);
+        top: 50%;
+        right: 0;
+        transform: translate(50%, -50%) rotate(90deg);
+        padding-bottom: 5rem;
     }
 
     #decor-bottom {
-        transform: rotate(180deg) translateX(-35rem) translateY(-42rem);
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 50%) rotate(180deg);
+        padding-bottom: 5rem;
     }
 
     #decor-left {
-        transform: rotate(-90deg) translateX(-14rem) translateY(-12rem);
+        top: 50%;
+        left: 0;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        padding-bottom: 5rem;
     }
 
     h1, h3 {
@@ -75,7 +90,7 @@ export const WelcomeSection = styled.section`
         transition: filter 3s ease, text-shadow 3s ease;
     }
 
-    h1:hover, h3:hover {
+    h1:hover {
         cursor: default;
     }
 
