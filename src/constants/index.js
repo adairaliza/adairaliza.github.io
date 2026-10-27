@@ -4,3 +4,5 @@ export const blackHoleList = [
     "PHEONIXA",
     "M87"
 ]
+
+export const FADE_OUT = 1500;

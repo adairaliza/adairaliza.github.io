@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useMouseTrail } from "../../hooks/useMouseTrail";
 import { usePageChange } from "../../hooks/usePageChange";
 
-import DialogueBox from "../dialogue-box/DialogueBox";
 import star from "../../assets/images/star.png";
 import newsparkle from "../../assets/images/new-sparkle.png";
 import sparkle from "../../assets/images/sparkle.svg";
@@ -21,48 +20,49 @@ import { BlackHoleDiv, SpaceSection, SparkleDiv } from "./Space.styled";
 * ^ but also my favorite movies / shows / animes
 * Quote site (maybe related to the bookshelf site)
 */
-const Space = () => {
+const Space = ({ active }: { active: Boolean }) => {
     const mouseTrail = useMouseTrail();
     const navigate = usePageChange();
-    const [count, setCount] = useState(0);
     const imgs = [newsparkle, sparkle];
 
-    useEffect(() => {
-        console.log("count:", count);
-    }, [count]);
-
-    const walkForward = () => {
-        setCount((currCount) => {
-            if (currCount === 75) {
-                return currCount;
-            } else {
-                updateStars(true);
-                return currCount + 1;
-            }
-        });
-    }
-
-    const walkBackward = () => {
-        setCount((currCount) => {
-            if (currCount === 0) {
-                return currCount;
-            } else {
-                updateStars(false);
-                return currCount - 1;
-            }
-        });
-    }
+    const countRef = useRef(0);
+    const pendingDirectionRef = useRef(0);
+    const frameRef = useRef(0);
 
     useEffect(() => {
-        window.addEventListener("wheel", (event: any) => {
-            const scrollDirection = event?.wheelDelta;
-            if (scrollDirection > 0) {
-                walkForward();
-            } else if (scrollDirection < 0) {
-                walkBackward();
+        if (active) {
+            const handleScroll = (event: any) => {
+                if (event.deltaY === 0) return;
+
+                pendingDirectionRef.current = event.deltaY < 0 ? 1 : -1;
+
+                frameRef.current = requestAnimationFrame(() => {
+                    const direction = pendingDirectionRef.current;
+                    pendingDirectionRef.current = 0;
+                    frameRef.current = 0;
+
+                    const nextCount = Math.max(0,
+                        Math.min(75, countRef.current + direction));
+
+                    if (nextCount === countRef.current) return;
+
+                    countRef.current = nextCount;
+                    updateStars(direction > 0);
+                });
             }
-        });
-    }, []);
+
+            window.addEventListener("wheel", handleScroll, {
+                passive: true,
+            });
+
+            return () => {
+                window.removeEventListener("wheel", handleScroll);
+                if (frameRef.current !== 0) {
+                    cancelAnimationFrame(frameRef.current);
+                }
+            }
+        }
+    }, [active]);
 
 
     const [starLayers, setStarLayers] = useState(() =>
@@ -75,11 +75,11 @@ const Space = () => {
                 row,
                 stars: Array.from({ length: lengthAmt }, (_, index) => ({
                     id: index,
-                    top: `${Math.floor(Math.random() * 85) + 5}%`,
-                    left: `${Math.floor(Math.random() * 85) + 5}%`,
-                    width: `${row * 2}px`,
-                    filter: `blur(0px)`,
-                    opacity: "1",
+                    top: Math.random() * 95,
+                    left: Math.random() * 95,
+                    width: row * 2,
+                    blur: 0,
+                    opacity: 1,
                 }))
             }
         })
@@ -95,30 +95,24 @@ const Space = () => {
                 return {
                     ...layer,
                     stars: layer.stars.map((star) => {
-                        const topValue = parseFloat(star.top);
-                        const leftValue = parseFloat(star.left);
-                        const imgWidth = parseFloat(star.width);
-
-                        let newBlur = parseFloat(star.filter.replace("blur(", "").replace("px)", ""));
-                        if (isForward && imgWidth > 25) {
-                            newBlur = newBlur + .5;
-                        } else if (!isForward && imgWidth > 20) {
-                            newBlur = newBlur - .5;
+                        let blurValue = star.blur;
+                        if (isForward && star.width > 25) {
+                            blurValue = blurValue + .5;
+                        } else if (!isForward && star.width > 20) {
+                            blurValue = blurValue - .5;
                         }
 
                         return {
                             ...star,
-                            top: `${topValue >= 50
-                                ? topValue + (isForward ? positionDiff : -positionDiff)
-                                : topValue + (isForward ? -positionDiff : positionDiff)
-                                }%`,
-                            left: `${leftValue >= 50
-                                ? leftValue + (isForward ? positionDiff : -positionDiff)
-                                : leftValue + (isForward ? -positionDiff : positionDiff)
-                                }%`,
-                            width: `${imgWidth + (isForward ? widthDiff : -widthDiff)}px`,
-                            filter: `blur(${newBlur}px)`,
-                            opacity: `${parseFloat(star.opacity) + (isForward ? -opacityDiff : opacityDiff)}`,
+                            top: star.top >= 50
+                                ? star.top + (isForward ? positionDiff : -positionDiff)
+                                : star.top + (isForward ? -positionDiff : positionDiff),
+                            left: star.left >= 50
+                                ? star.left + (isForward ? positionDiff : -positionDiff)
+                                : star.left + (isForward ? -positionDiff : positionDiff),
+                            width: star.width + (isForward ? widthDiff : -widthDiff),
+                            filter: blurValue,
+                            opacity: star.opacity + (isForward ? -opacityDiff : opacityDiff),
                         }
                     })
                 }
@@ -136,10 +130,10 @@ const Space = () => {
                         className={`stars row-${layer.row}`}
                         style={{
                             position: "fixed",
-                            width: star.width,
-                            top: star.top,
-                            left: star.left,
-                            filter: star.filter,
+                            width: `${star.width}px`,
+                            top: `${star.top}%`,
+                            left: `${star.left}%`,
+                            filter: `blur(${star.blur}px)`,
                             opacity: star.opacity,
                             transition: "top 300ms ease, left 300ms ease, width 300ms ease, opacity 300ms ease, filter 300ms ease",
                         }}
@@ -158,8 +152,8 @@ const Space = () => {
         <>
             {mouseTrail(star)}
             <SpaceSection>
-                {count > 30 &&
-                    <BlackHoleDiv visibility={count - 30}>
+                {countRef.current > 30 &&
+                    <BlackHoleDiv visibility={countRef.current - 30}>
                         <button
                             onClick={() => navigateToBlackHole()}
                         >.</button>
@@ -167,7 +161,6 @@ const Space = () => {
                 }
                 {starLayers.map(createStarLayer)}
             </SpaceSection>
-            <DialogueBox text="Welcome to my space. Thank you for visiting. Proceed with caution..." canExit />
         </>
     )
 }

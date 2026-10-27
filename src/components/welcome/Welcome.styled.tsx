@@ -29,7 +29,8 @@ export const WelcomeSection = styled.section`
         margin-bottom: -10px;
     }
 
-    .box {
+    #welcome-box {
+        z-index: 100;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -40,6 +41,7 @@ export const WelcomeSection = styled.section`
         background: black;
         width: clamp(60rem, 75vw, 85rem);
         height: clamp(30rem, 40vw, 52rem);
+        transition: opacity 1.5s ease;
     }
 
     #border-decor {
@@ -88,7 +90,7 @@ export const WelcomeSection = styled.section`
         transition: filter 3s ease, text-shadow 3s ease;
     }
 
-    h1:hover, h3:hover {
+    h1:hover {
         cursor: default;
     }
 

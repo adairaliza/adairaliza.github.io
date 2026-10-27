@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { Outlet, useLocation } from "react-router-dom";
 import { usePageChange } from "../../hooks/usePageChange";
-import FallingStars from "../falling-stars/FallingStars";
 
 function Main() {
     const location = useLocation();
@@ -20,11 +19,10 @@ function Main() {
                 height: "100vh",
                 backgroundColor: "black",
                 zIndex: "999",
-                opacity: "0",
+                opacity: "1",
                 transition: "opacity 1s ease",
             }} />
             <Outlet />
-            <FallingStars />
         </>
     );
 }

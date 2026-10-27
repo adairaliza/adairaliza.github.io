@@ -4,11 +4,14 @@ import { usePageChange } from "../../hooks/usePageChange";
 import { WelcomeSection } from "./Welcome.styled";
 import { DialogueStyled } from "../main/Main.styled";
 
+import { FADE_OUT } from "../../constants";
 import border from "../../assets/images/border.svg";
+import Space from "../space/Space";
 
 function Welcome() {
   const navigate = usePageChange();
   const [count, setCount] = useState(1);
+  const [activateSpace, setActivateSpace] = useState<Boolean>(false);
   const increaseRef = useRef(true);
 
   const counter = () => {
@@ -32,15 +35,22 @@ function Welcome() {
 
     const interval = setInterval(() => {
       counter();
-    }, 1500);
+    }, FADE_OUT);
     return () => clearInterval(interval);
   }, []);
 
+  const goToSpace = () => {
+    const welcomeSection = document.getElementById("welcome-box");
+    if (welcomeSection) {
+      welcomeSection.style.opacity = "0";
+    }
+    setActivateSpace(true);
+  }
 
   return (
     <main>
       <WelcomeSection className={`margin-${count}`}>
-        <div className="box">
+        <div id="welcome-box">
           <span id="border-decor">
             <img id="decor-top" src={border} />
             <img id="decor-right" src={border} />
@@ -51,20 +61,21 @@ function Welcome() {
           <h3 className="blur">What would you like to do?</h3>
           <DialogueStyled>
             <div>
-              <span>
-                <h3 className="blur" onClick={(() => navigate("orbit", true))}>
+              <button onClick={(() => goToSpace())}>
+                <h3 className="blur">
                   Enter
                 </h3>
-              </span>
-              <span>
-                <h3 className="blur" onClick={() => navigate("death", true)}>
+              </button>
+              <button onClick={() => navigate("death", true)}>
+                <h3 className="blur">
                   Exit
                 </h3>
-              </span>
+              </button>
             </div>
           </DialogueStyled>
         </div>
       </WelcomeSection>
+      <Space active={activateSpace} />
     </main>
   );
 }
